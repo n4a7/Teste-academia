@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PULSO — Treinamento de Alta Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0A0A0A;
+    --black-soft:#161616;
+    --red:#D6001C;
+    --red-dark:#8F0013;
+    --white:#F5F5F5;
+    --line: rgba(245,245,245,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Barlow Condensed', sans-serif;
+    background:var(--black);
+    color:var(--white);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    font-size:17px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.92;
+    text-transform:uppercase;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--black);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .logo{
+    font-family:'Anton', sans-serif;
+    font-size:26px; color:var(--white);
+    letter-spacing:0.03em;
+  }
+  .logo span{color:var(--red);}
+  .nav-links{display:none; gap:28px; align-items:center;}
+  .nav-links a{color:var(--white); font-size:16px; font-weight:500; opacity:0.85; text-transform:uppercase; letter-spacing:0.03em;}
+  .nav-links a:hover{opacity:1;}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:13px 24px; font-family:'Anton'; font-size:15px; letter-spacing:0.03em;
+    text-transform:uppercase; border:2px solid transparent; cursor:pointer;
+  }
+  .btn-primary{background:var(--red); color:var(--white);}
+  .btn-primary:hover{background:var(--red-dark);}
+  .btn-ghost{border-color:var(--white); color:var(--white);}
+  .btn-ghost:hover{background:rgba(245,245,245,0.1);}
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex; align-items:flex-end;
+    background-image:
+      linear-gradient(180deg, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.75) 55%, var(--black) 100%),
+      url('hero.jpg');
+    background-size:cover;
+    background-position:center 20%;
+  }
+  .hero-inner{position:relative; z-index:2; padding-bottom:48px; width:100%;}
+  .eyebrow{
+    font-size:15px; color:var(--red); font-weight:700; margin-bottom:12px;
+    text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .hero h1{font-size:46px; margin-bottom:16px; max-width:11ch; color:var(--white);}
+  .hero p.lede{
+    font-size:19px; color:#d8d8d8; max-width:42ch; margin-bottom:26px; line-height:1.35;
+  }
+  .hero-ctas{display:flex; gap:12px; flex-wrap:wrap;}
+  .stats{
+    background:var(--black-soft); color:var(--white);
+    padding:40px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .stats .wrap{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+  }
+  .stat .num{font-family:'Anton'; font-size:42px; color:var(--red);}
+  .stat .lab{font-size:14px; color:#b8b8b8; margin-top:2px; text-transform:uppercase; letter-spacing:0.02em;}
+  section{padding:60px 0;}
+  .sec-head{margin-bottom:30px; max-width:38ch;}
+  .sec-head .tag{font-size:15px; color:var(--red); font-weight:700; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em;}
+  .sec-head h2{font-size:32px;}
+  .lane{
+    display:flex; flex-direction:column; gap:6px;
+    border-top:1px solid var(--line);
+    padding:18px 0;
+  }
+  .lane:last-child{border-bottom:1px solid var(--line);}
+  .lane-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px;}
+  .lane-name{font-family:'Anton'; font-size:23px; color:var(--white);}
+  .lane-tag{font-size:14px; color:var(--red); font-weight:600; white-space:nowrap; text-transform:uppercase;}
+  .lane-desc{font-size:16px; color:#b8b8b8; max-width:56ch;}
+  .schedule-grid{display:grid; grid-template-columns:1fr; gap:2px; background:var(--line);}
+  .sched-row{
+    background:var(--black); display:flex; justify-content:space-between; padding:14px 16px; font-size:16px;
+  }
+  .sched-row .day{font-weight:700; text-transform:uppercase;}
+  .sched-row .time{color:#b8b8b8;}
+  .coaches{display:grid; grid-template-columns:1fr; gap:24px;}
+  .coach{display:flex; gap:16px; align-items:flex-start;}
+  .avatar{
+    width:56px; height:56px; border-radius:50%; flex-shrink:0;
+    background:var(--red); color:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Anton'; font-size:20px;
+  }
+  .coach h3{font-size:19px; text-transform:none; font-weight:600; margin-bottom:2px; font-family:'Barlow Condensed';}
+  .coach .role{font-size:14px; color:var(--red); font-weight:600; margin-bottom:6px; text-transform:uppercase;}
+  .coach p{font-size:15px; color:#b8b8b8;}
+  .plan-grid{display:grid; grid-template-columns:1fr; gap:16px;}
+  .plan{
+    border:1px solid var(--line); padding:26px 22px; position:relative; background:var(--black-soft);
+  }
+  .plan.featured{border-color:var(--red); background:rgba(214,0,28,0.08);}
+  .plan .badge{
+    position:absolute; top:-13px; left:22px; background:var(--red); color:var(--white);
+    font-family:'Anton'; font-size:12px; padding:5px 10px; letter-spacing:0.03em;
+  }
+  .plan h3{font-size:24px; margin-bottom:8px;}
+  .plan .price{font-family:'Anton'; font-size:38px; margin-bottom:4px;}
+  .plan .price span{font-size:15px; color:#b8b8b8; font-family:'Barlow Condensed'; text-transform:none;}
+  .plan .price-note{font-size:13px; color:var(--red); margin-bottom:16px; text-transform:uppercase;}
+  .plan ul{list-style:none; margin-bottom:22px;}
+  .plan li{font-size:15px; padding:7px 0; border-top:1px solid var(--line); color:#d8d8d8;}
+  .plan li:first-child{border-top:none;}
+  .quote{
+    border-left:3px solid var(--red); padding-left:20px; max-width:60ch;
+  }
+  .quote p{font-size:20px; line-height:1.35; margin-bottom:14px; font-family:'Anton'; text-transform:none; letter-spacing:0;}
+  .quote .who{font-size:15px; color:#b8b8b8;}
+  .final-cta{
+    background:var(--red); color:var(--white); text-align:left; position:relative; overflow:hidden;
+  }
+  .final-cta h2{font-size:34px; max-width:14ch; margin-bottom:22px; color:var(--white);}
+  #cta-canvas{position:absolute; right:-40px; top:50%; transform:translateY(-50%); width:220px; height:220px; opacity:0.35; pointer-events:none;}
+  footer{background:var(--black-soft); color:var(--white); padding:40px 0 28px; border-top:1px solid var(--line);}
+  .foot-grid{display:grid; grid-template-columns:1fr; gap:24px; margin-bottom:24px;}
+  .foot-grid h4{font-size:15px; color:var(--red); margin-bottom:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;}
+  .foot-grid p, .foot-grid a{font-size:15px; color:#c9c9c9; display:block; margin-bottom:6px;}
+  .foot-bottom{border-top:1px solid var(--line); padding-top:18px; font-size:13px; color:#8a8a8a;}
+  @media(min-width:760px){
+    .nav-links{display:flex;}
+    .hero h1{font-size:66px;}
+    .stats .wrap{grid-template-columns:repeat(4,1fr);}
+    .coaches{grid-template-columns:repeat(3,1fr);}
+    .plan-grid{grid-template-columns:repeat(3,1fr);}
+    .foot-grid{grid-template-columns:2fr 1fr 1fr 1fr;}
+    section{padding:88px 0;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">PULSO<span>.</span></div>
+    <div class="nav-links">
+      <a href="#modalidades">Modalidades</a>
+      <a href="#horarios">Horários</a>
+      <a href="#planos">Planos</a>
+      <a href="#contato">Contato</a>
+      <a href="#agendar" class="btn btn-primary">Agendar</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Treinamento de alta performance</div>
+    <h1>Sua intensidade tem um limite. A gente empurra ele.</h1>
+    <p class="lede">Treinos funcionais de alta intensidade com acompanhamento em cada aula, do primeiro ao último minuto.</p>
+    <div class="hero-ctas">
+      <a href="#agendar" class="btn btn-primary">Agendar aula experimental</a>
+      <a href="#modalidades" class="btn btn-ghost">Ver modalidades</a>
+    </div>
+  </div>
+</header>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="num">12</div><div class="lab">Anos de experiência</div></div>
+    <div class="stat"><div class="num">3.400</div><div class="lab">Alunos ativos</div></div>
+    <div class="stat"><div class="num">24</div><div class="lab">Turmas por semana</div></div>
+    <div class="stat"><div class="num">98%</div><div class="lab">Adesão mensal</div></div>
+  </div>
+</section>
+
+<section id="modalidades">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="tag">Modalidades</div>
+      <h2>Seis formas de subir sua frequência cardíaca</h2>
+    </div>
+
+    <div class="lane">
+      <div class="lane-top"><span class="lane-name">HIIT</span><span class="lane-tag">Alta intensidade · 30 min</span></div>
+      <p class="lane-desc">Blocos curtos e intensos com descanso cronometrado, focados em condicionamento e queima calórica.</p>
+    </div>
+    <div class="lane">
+      <div class="lane-top"><span class="lane-name">Funcional</span><span class="lane-tag">Moderada · 50 min</span></div>
+      <p class="lane-desc">Movimentos multiarticulares com peso corporal, kettlebell e cordas, aplicados ao dia a dia.</p>
+    </div>
+    <div class="lane">
+      <div class="lane-top"><span class="lane-name">Força</span><span class="lane-tag">Cargas progressivas · 55 min</span></div>
+      <p class="lane-desc">Levantamento estruturado em ciclos, com acompanhamento de carga e técnica em cada série.</p>
+    </div>
+    <div class="lane">
+      <div class="lane-top"><span class="lane-name">Corrida indoor</span><span class="lane-tag">Cardio · 40 min</span></div>
+      <p class="lane-desc">Séries de tiros e ritmo controlado em esteira, com faixas de frequência cardíaca por aluno.</p>
+    </div>
+    <div class="lane">
+      <div class="lane-top"><span class="lane-name">Mobilidade</span><span class="lane-tag">Baixa intensidade · 35 min</span></div>
+      <p class="lane-desc">Trabalho de amplitude e controle articular para sustentar a carga dos treinos mais intensos.</p>
+    </div>
+    <div class="lane">
+      <div class="lane-top"><span class="lane-name">Recovery</span><span class="lane-tag">Regenerativo · 30 min</span></div>
+      <p class="lane-desc">Respiração, alongamento guiado e liberação miofascial entre os ciclos mais pesados.</p>
+    </div>
+  </div>
+</section>
+
+<section id="horarios" style="background:var(--black-soft);">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="tag">Horários</div>
+      <h2>Turmas de segunda a sábado</h2>
+    </div>
+    <div class="schedule-grid">
+      <div class="sched-row"><span class="day">Segunda a sexta</span><span class="time">06h · 07h · 12h · 18h · 19h30</span></div>
+      <div class="sched-row"><span class="day">Sábado</span><span class="time">08h · 09h30 · 11h</span></div>
+      <div class="sched-row"><span class="day">Domingo</span><span class="time">Fechado para treino livre com reserva</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="treinadores">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="tag">Treinadores</div>
+      <h2>Quem conduz o seu treino</h2>
+    </div>
+    <div class="coaches">
+      <div class="coach">
+        <div class="avatar">RM</div>
+        <div>
+          <h3>Rafa Medeiros</h3>
+          <div class="role">Head de Funcional</div>
+          <p>Especialista em periodização de treinos em grupo e prevenção de lesões em cargas altas.</p>
+        </div>
+      </div>
+      <div class="coach">
+        <div class="avatar">CA</div>
+        <div>
+          <h3>Camila Andrade</h3>
+          <div class="role">Força & Levantamento</div>
+          <p>Formada em educação física, acompanha progressão de carga individual dentro das aulas em grupo.</p>
+        </div>
+      </div>
+      <div class="coach">
+        <div class="avatar">DS</div>
+        <div>
+          <h3>Diego Sá</h3>
+          <div class="role">Cardio & Performance</div>
+          <p>Monta os blocos de corrida indoor com base em faixas de frequência cardíaca de cada turma.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="tag">Planos</div>
+      <h2>Escolha o ritmo do seu treino</h2>
+    </div>
+    <div class="plan-grid">
+      <div class="plan">
+        <h3>Semanal</h3>
+        <div class="price">R$ 49<span>/semana</span></div>
+        <div class="price-note">Ideal para experimentar</div>
+        <ul>
+          <li>Acesso a todas as modalidades</li>
+          <li>Aulas ilimitadas por 7 dias</li>
+          <li>Sem fidelidade</li>
+        </ul>
+        <a href="#agendar" class="btn btn-ghost" style="width:100%;">Escolher Semanal</a>
+      </div>
+      <div class="plan featured">
+        <span class="badge">Mais escolhido</span>
+        <h3>Mensal</h3>
+        <div class="price">R$ 149<span>/mês</span></div>
+        <div class="price-note">Renovação automática</div>
+        <ul>
+          <li>Aulas ilimitadas</li>
+          <li>Todas as modalidades</li>
+          <li>Acompanhamento mensal de evolução</li>
+        </ul>
+        <a href="#agendar" class="btn btn-primary" style="width:100%;">Escolher Mensal</a>
+      </div>
+      <div class="plan">
+        <h3>Anual</h3>
+        <div class="price">R$ 1.290<span>/ano</span></div>
+        <div class="price-note">Equivale a R$ 107,50/mês</div>
+        <ul>
+          <li>Tudo do plano Mensal</li>
+          <li>2 sessões individuais por mês</li>
+          <li>Prioridade nos horários de pico</li>
+        </ul>
+        <a href="#agendar" class="btn btn-ghost" style="width:100%;">Escolher Anual</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--black-soft);">
+  <div class="wrap">
+    <div class="quote">
+      <p>Treinei em três academias antes e nunca tinha visto meu treino ser ajustado aula a aula como aqui.</p>
+      <div class="who">Bianca Ferraz — aluna do plano Mensal há 8 meses</div>
+    </div>
+  </div>
+</section>
+
+<section id="agendar" class="final-cta">
+  <canvas id="cta-canvas"></canvas>
+  <div class="wrap">
+    <h2>Sua próxima aula pode ser a experimental.</h2>
+    <a href="https://wa.me/5511900000000?text=Quero%20agendar%20uma%20aula%20experimental" class="btn" style="background:var(--black); color:var(--white);">Agendar pelo WhatsApp</a>
+  </div>
+</section>
+
+<footer id="contato">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>PULSO Treinamento</h4>
+        <p style="max-width:38ch;">Treinamento funcional de alta intensidade, com acompanhamento próximo em cada aula.</p>
+      </div>
+      <div>
+        <h4>Endereço</h4>
+        <p>Rua das Palmeiras, 480<br>Bairro Jardim América</p>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <a href="tel:+551140028922">(11) 4002-8922</a>
+        <a href="mailto:ola@pulsotreino.com.br">ola@pulsotreino.com.br</a>
+      </div>
+      <div>
+        <h4>Redes</h4>
+        <a href="#">Instagram</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 PULSO Treinamento. Todos os direitos reservados.</div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  try{
+    var canvas = document.getElementById('cta-canvas');
+    var renderer = new THREE.WebGLRenderer({canvas:canvas, alpha:true, antialias:true});
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.set(0,0,6);
+
+    function size(){
+      var s = canvas.clientWidth || 220;
+      renderer.setSize(s, s, false);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+      camera.aspect = 1;
+      camera.updateProjectionMatrix();
+    }
+
+    var geo = new THREE.TorusKnotGeometry(1.3, 0.32, 120, 12, 2, 5);
+    var mat = new THREE.MeshBasicMaterial({color:0x0A0A0A, wireframe:true, transparent:true, opacity:0.8});
+    var knot = new THREE.Mesh(geo, mat);
+    scene.add(knot);
+
+    size();
+    window.addEventListener('resize', size);
+
+    function animate(){
+      requestAnimationFrame(animate);
+      knot.rotation.x += 0.005;
+      knot.rotation.y += 0.007;
+      renderer.render(scene, camera);
+    }
+    animate();
+  }catch(e){
+    var c = document.getElementById('cta-canvas');
+    if(c) c.style.display = 'none';
+  }
+})();
+</script>
+
+</body>
+</html>
